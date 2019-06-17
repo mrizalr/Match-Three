@@ -2,13 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum GameState
+{
+    wait,
+    move
+}
+
 public class Generator : MonoBehaviour
 {
     public int width, height;
+    public GameState currentState = GameState.move;
     public GameObject gridPrefabs;
     public GameObject[] dots;
     private GridHandler[,] allTiles;
     public GameObject[,] allDots;
+    public SwipeDots swiper;
 
 
     // Start is called before the first frame update
@@ -16,6 +24,7 @@ public class Generator : MonoBehaviour
     {
         allTiles = new GridHandler[width, height];
         allDots = new GameObject[width, height];
+        swiper = GameObject.FindObjectOfType<SwipeDots>();
         SettingUp();
     }
 
@@ -121,6 +130,8 @@ public class Generator : MonoBehaviour
                 else if (nullCount > 0)
                 {
                     allDots[i, j].GetComponent<SwipeDots>().row -= nullCount;
+                    allDots[i, j].GetComponent<SwipeDots>().prevCol = allDots[i, j].GetComponent<SwipeDots>().column;
+                    allDots[i, j].GetComponent<SwipeDots>().prevRow = allDots[i, j].GetComponent<SwipeDots>().row;
                     allDots[i, j] = null;
                 }
             }
@@ -176,6 +187,61 @@ public class Generator : MonoBehaviour
         {
             yield return new WaitForSeconds(.5f);
             DestroyDotsGO();
+        }
+
+        yield return new WaitForSeconds(.5f);
+        currentState = GameState.move;
+    }
+
+    public void MoveDots()
+    {
+        if (swiper.angleOfTouch <= 45 && swiper.angleOfTouch > -45 && swiper.column < width - 1)
+        {
+            swiper.otherDot = allDots[swiper.column + 1, swiper.row];
+            swiper.otherDot.GetComponent<SwipeDots>().column -= 1;
+            swiper.column += 1;
+        }
+        else if (swiper.angleOfTouch > 45 && swiper.angleOfTouch <= 135 && swiper.row < height - 1)
+        {
+            swiper.otherDot = allDots[swiper.column, swiper.row + 1];
+            swiper.otherDot.GetComponent<SwipeDots>().row -= 1;
+            swiper.row += 1;
+        }
+        else if (swiper.angleOfTouch > 135 || swiper.angleOfTouch <= -135 && swiper.column > 0)
+        {
+            swiper.otherDot = allDots[swiper.column - 1, swiper.row];
+            swiper.otherDot.GetComponent<SwipeDots>().column += 1;
+            swiper.column -= 1;
+        }
+        else if (swiper.angleOfTouch < -45 && swiper.angleOfTouch >= -135 && swiper.row > 0)
+        {
+            swiper.otherDot = allDots[swiper.column, swiper.row - 1];
+            swiper.otherDot.GetComponent<SwipeDots>().row += 1;
+            swiper.row -= 1;
+        }
+
+        StartCoroutine(reverseDots());
+    }
+
+    public IEnumerator reverseDots()
+    {
+        yield return new WaitForSeconds(.6f);
+        if (swiper.otherDot != null)
+        {
+            if (!swiper.isMatch && !swiper.otherDot.GetComponent<SwipeDots>().isMatch)
+            {
+                swiper.otherDot.GetComponent<SwipeDots>().row = swiper.row;
+                swiper.otherDot.GetComponent<SwipeDots>().column = swiper.column;
+                swiper.row = swiper.prevRow;
+                swiper.column = swiper.prevCol;
+                yield return new WaitForSeconds(.5f);
+                currentState = GameState.move;
+            }
+            else
+            {
+                DestroyDotsGO();
+            }
+            swiper.otherDot = null;
         }
     }
 }

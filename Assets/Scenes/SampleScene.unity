@@ -143,6 +143,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   width: 6
   height: 8
+  currentState: 1
   gridPrefabs: {fileID: 1777985320651869570, guid: e5f1de136620e344fabd20321c033e76,
     type: 3}
   dots:
@@ -152,6 +153,7 @@ MonoBehaviour:
   - {fileID: 8069158519277880653, guid: ff24649a39f02304dabdbf1b777f4f90, type: 3}
   - {fileID: 7413686218818897693, guid: 635ca5094d5771247a745ebf836330cb, type: 3}
   - {fileID: 304731421295976790, guid: 4e1649889973f5340a97056185ff4e00, type: 3}
+  swiper: {fileID: 0}
 --- !u!4 &89306860
 Transform:
   m_ObjectHideFlags: 0

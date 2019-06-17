@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2300141138258760515}
   - component: {fileID: 8533770470817105483}
   - component: {fileID: 5379978472704507299}
+  - component: {fileID: 6799562201436369832}
   m_Layer: 0
   m_Name: orangeDot
   m_TagString: Orange dot
@@ -111,4 +112,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   column: 0
   row: 0
+  otherDot: {fileID: 0}
+  prevCol: 0
+  prevRow: 0
+  startTouchPos: {x: 0, y: 0}
+  finalTouchPos: {x: 0, y: 0}
+  tempPos: {x: 0, y: 0}
   angleOfTouch: 0
+  isMatch: 0
+--- !u!114 &6799562201436369832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2044332734501374147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f2bd4df2ec82eb41b61d70077f8174e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gen: {fileID: 0}
+  swiperScript: {fileID: 0}

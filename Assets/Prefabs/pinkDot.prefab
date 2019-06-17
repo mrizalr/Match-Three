@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 762286591570315759}
   - component: {fileID: 5544536034145016626}
   - component: {fileID: 4040303353600451110}
+  - component: {fileID: 3869775382065375680}
   m_Layer: 0
   m_Name: pinkDot
   m_TagString: Pink dot
@@ -111,4 +112,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   column: 0
   row: 0
+  otherDot: {fileID: 0}
+  prevCol: 0
+  prevRow: 0
+  startTouchPos: {x: 0, y: 0}
+  finalTouchPos: {x: 0, y: 0}
+  tempPos: {x: 0, y: 0}
   angleOfTouch: 0
+  isMatch: 0
+--- !u!114 &3869775382065375680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8069158519277880653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f2bd4df2ec82eb41b61d70077f8174e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gen: {fileID: 0}
+  swiperScript: {fileID: 0}
